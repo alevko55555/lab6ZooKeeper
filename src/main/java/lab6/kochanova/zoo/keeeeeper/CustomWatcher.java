@@ -5,18 +5,24 @@ import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 
 public class CustomWatcher implements Watcher {
-    boolean init;
+    private boolean init;
+    private ZooKeeper zoo;
 
-    public CustomWatcher(boolean init){
+    public CustomWatcher(boolean init, ZooKeeper zoo){
         this.init = init;
+        this.zoo = zoo;
     }
 
     @Override
     public void process(WatchedEvent watchedEvent) {
+        if(init){
 
+        }else{
+
+        }
     }
 
     void refreshWatcher(){
-        
+        zoo.getChildren()
     }
 }
