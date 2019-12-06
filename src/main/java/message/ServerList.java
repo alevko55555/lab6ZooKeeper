@@ -7,4 +7,7 @@ public class ServerList {
         this.server = server;
     }
 
+    public String getServer() {
+        return server;
+    }
 }
