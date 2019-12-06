@@ -1,6 +1,7 @@
 package lab6.kochanova.zoo.keeeeeper;
 
 import akka.actor.AbstractActor;
+import message.PutServer;
 
 import java.util.List;
 
@@ -14,7 +15,9 @@ public class ActorStorageConfig extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match()
+                .match(PutServer.class, msg -> {
+                    
+                })
                 .build();
     }
 }
