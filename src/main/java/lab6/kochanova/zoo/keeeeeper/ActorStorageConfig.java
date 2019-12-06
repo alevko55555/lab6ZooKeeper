@@ -16,7 +16,8 @@ public class ActorStorageConfig extends AbstractActor {
     public Receive createReceive() {
         return receiveBuilder()
                 .match(PutServer.class, msg -> {
-                    
+                    storage.clear();
+                    storage.addAll(msg.getServers());
                 })
                 .build();
     }
