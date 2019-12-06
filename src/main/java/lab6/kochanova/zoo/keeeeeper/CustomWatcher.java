@@ -2,17 +2,18 @@ package lab6.kochanova.zoo.keeeeeper;
 
 import akka.actor.ActorRef;
 import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 
-public class CustomWatcher implements Watcher {
-    private ZooKeeper zoo;
-    private ActorRef storage;
+public class CustomWatcher {
+    private final ZooKeeper zoo;
+    private final ActorRef storage;
     private final String serverPath;
 
-
-
-
+    public CustomWatcher (ZooKeeper zoo, ActorRef storage, String serverPath) {
+        this.zoo = zoo;
+        this.storage = storage;
+        this.serverPath = serverPath;
+    }
 
     public CustomWatcher(){
 
