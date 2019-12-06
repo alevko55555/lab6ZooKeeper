@@ -6,5 +6,5 @@ public class ServerList {
     public ServerList(String server) {
         this.server = server;
     }
-    
+
 }
