@@ -24,7 +24,7 @@ public class Main {
     }
 
     private void createZooKeeper(String ZooKeeperHost, String serverHost) throws IOException, KeeperException, InterruptedException {
-        zooKeeper = new ZooKeeper(ZooKeeperHost, 2000, new CustomWatcher());
+        zooKeeper = new ZooKeeper(ZooKeeperHost, 2000, new CustomWatcher(zoo));
         zooKeeper.create("/servers/" + serverHost, serverHost.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
 
     }
