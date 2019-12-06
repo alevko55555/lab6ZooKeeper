@@ -8,4 +8,8 @@ public class PutServer {
     public PutServer(List<String> servers) {
         this.servers = servers;
     }
+
+    public List<String> getServers() {
+        return servers;
+    }
 }
