@@ -6,14 +6,14 @@ import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 
 public class CustomWatcher implements Watcher {
-    private boolean init;
     private ZooKeeper zoo;
-    private ActorRef actor;
+    private ActorRef storage;
+    private final String serverPath;
 
-    public CustomWatcher(boolean init, ZooKeeper zoo){
-        this.init = init;
-        this.zoo = zoo;
-    }
+
+
+
+
     public CustomWatcher(){
 
     }
