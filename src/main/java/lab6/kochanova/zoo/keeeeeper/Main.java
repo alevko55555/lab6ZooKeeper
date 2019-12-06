@@ -15,16 +15,23 @@ watcher срабатывает строго один раз, поэтому ег
 */
 
 public class Main {
-    private ZooKeeper zooKeeper;
+    private static final String zookeeperConnect = "127.0.0.1:2181";
+    //private static final String
 
     public static void main(String[] args){
         // creating server
-
+        if (args.length != 2) {
+            System.err.println("Usage: Anonymizer <host><port>");
+            System.exit(-1);
+        }
+        final String host = args[0];
+        final int port = Integer.parseInt(args[1]);
+        final ZooKeeper zoo = new ZooKeeper(zookeeperConnect, 2000, )
 
     }
 
     private void createZooKeeper(String ZooKeeperHost, String serverHost) throws IOException, KeeperException, InterruptedException {
-        zooKeeper = new ZooKeeper(ZooKeeperHost, 2000, new CustomWatcher(zoo));
+        zooKeeper = new ZooKeeper(ZooKeeperHost, 2000, new CustomWatcher(zooKeeper));
         zooKeeper.create("/servers/" + serverHost, serverHost.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
 
     }
