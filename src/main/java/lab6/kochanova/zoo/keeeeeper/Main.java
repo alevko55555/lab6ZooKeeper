@@ -38,7 +38,7 @@ public class Main {
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
         //final AsyncHttpClient asyncHttpClient = asyncHttpClient();
-        ActorRef storage = sysmtem.
+        ActorRef storage = system.actorOf(ActorStorageConfig.)
 
     }
 
