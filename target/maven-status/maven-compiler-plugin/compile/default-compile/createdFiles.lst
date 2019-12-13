@@ -1,0 +1,8 @@
+lab6/kochanova/zoo/keeeeeper/Anonymizator.class
+message/ServerList.class
+message/PutServer.class
+lab6/kochanova/zoo/keeeeeper/ActorStorageConfig.class
+message/DeleteServer.class
+message/GetRandomServer.class
+lab6/kochanova/zoo/keeeeeper/CustomWatcher.class
+lab6/kochanova/zoo/keeeeeper/Main.class
