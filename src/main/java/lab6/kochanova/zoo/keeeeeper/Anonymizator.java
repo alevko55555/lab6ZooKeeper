@@ -11,7 +11,9 @@ import message.PutServer;
 import message.ServerList;
 import org.asynchttpclient.Response;
 
-import static akka.http.javadsl.server.Directives.route;
+import java.util.concurrent.CompletionStage;
+
+import static akka.http.javadsl.server.Directives.*;
 
 public class Anonymizator {
     private final AsyncHttpClient asyncHttpClient;
@@ -24,5 +26,20 @@ public class Anonymizator {
         this.zoo = zoo;
     }
 
-    private Response
+    public Route createRoute() {
+        return route(
+                get(() ->
+                        parameter("url", url ->
+                                parameter("count", count ->
+                                    getUrlCount(url, Integer.parseInt(count))
+                                )))
+        );
+    }
+
+    public Route getUrlCount(String url , int count) {
+        if (CompletionStage<Response> resp = count == 0) {
+
+        }
+
+    }
 }
