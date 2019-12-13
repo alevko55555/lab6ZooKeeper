@@ -43,10 +43,11 @@ public class Anonymizator {
     }
 
     public Route getUrlCount(String url , int count) {
+        CompletionStage<Response> resp;
         if(count == 0) {
-            asyncHttpClient.executeRequest(asyncHttpClient.prepareGet(url).build()).toCompletableFuture();
+            resp = asyncHttpClient.executeRequest(asyncHttpClient.prepareGet(url).build()).toCompletableFuture();
         } else {
-            Patterns.ask(storage, new GetRandomServer(), Duration.ofSeconds(5))
+            resp = Patterns.ask(storage, new GetRandomServer(), Duration.ofSeconds(5))
                     .thenApply(o -> ((ServerList)o).getServer())
                     .thenCompose(znode -> asyncHttpClient.executeRequest(
                             createServerRequest(getServerUrl(znode), url, count-1)
@@ -55,6 +56,7 @@ public class Anonymizator {
                                             handleBadRedirection(response, throwable, znode))
                     );
         }
+        return completeOKWithFutureString(resp.thenApply(Response::getResponseBody));
     }
 
     public Response handleBadRedirection(Response response, Throwable throwable, String znode) {
