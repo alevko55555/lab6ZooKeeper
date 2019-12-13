@@ -1,10 +1,16 @@
 package lab6.kochanova.zoo.keeeeeper;
 
+import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
+import akka.http.javadsl.ServerBinding;
+import akka.http.javadsl.model.HttpRequest;
+import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
+import akka.stream.javadsl.Flow;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs;
@@ -12,6 +18,7 @@ import org.apache.zookeeper.ZooKeeper;
 import org.asynchttpclient.*;
 
 import java.io.IOException;
+import java.util.concurrent.CompletionStage;
 import java.util.logging.Logger;
 
 /*
@@ -38,18 +45,25 @@ public class Main {
         final ActorSystem system = ActorSystem.create("routes");
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
-        //final AsyncHttpClient asyncHttpClient = asyncHttpClient();
+        final AsyncHttpClient asyncHttpClient = asyncHttpClient();
         ActorRef storage = system.actorOf(Props.create(ActorStorageConfig.class));
         final CustomWatcher customWatcher = new CustomWatcher(zoo, storage, serverPath);
         customWatcher.createServer("localhost:" + port, host, port);
 
-        final
+        final Anonymizator anonymizatorServer = new Anonymizator(storage, asyncHttpClient, zoo);
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = anonymizatorServer.createRoute().flow(system, materializer);
+        final CompletionStage<ServerBinding> bindingCompletionStage = http.bindAndHandle(
+                routeFlow,
+                ConnectHttp.toHost(host, port),
+                materializer
+        );
 
-    }
+        System.out.println("Server online at " + host + ":" + port + "/");
+        System.in.read();
 
-    private void createZooKeeper(String ZooKeeperHost, String serverHost) throws IOException, KeeperException, InterruptedException {
-        zooKeeper = new ZooKeeper(ZooKeeperHost, 2000, new CustomWatcher(zooKeeper));
-        zooKeeper.create("/servers/" + serverHost, serverHost.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
-
+        asyncHttpClient.close();
+        customWatcher.removeWatches();
+        zoo.close();
+        bindingCompletionStage.thenCompose(ServerBinding::unbind).thenApply(unbound -> system.terminate());
     }
 }
