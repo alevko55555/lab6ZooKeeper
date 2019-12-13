@@ -9,6 +9,7 @@ import message.DeleteServer;
 import message.GetRandomServer;
 import message.PutServer;
 import message.ServerList;
+import org.asynchttpclient.Response;
 
 import static akka.http.javadsl.server.Directives.route;
 
@@ -23,7 +24,5 @@ public class Anonymizator {
         this.zoo = zoo;
     }
 
-    public Route createRoute() {
-        return route(get(() -> ));
-    }
+    private Response 
 }
