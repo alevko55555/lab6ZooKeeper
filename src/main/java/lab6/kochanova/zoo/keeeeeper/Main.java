@@ -36,7 +36,7 @@ public class Main {
         final ActorSystem system = ActorSystem.create("routes");
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
-        final AsyncHttpClient;
+        final AsyncHttpClient asyncHttpClient = asyncHttpClient();
 
     }
 
