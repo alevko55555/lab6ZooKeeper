@@ -43,7 +43,7 @@ public class Main {
         final CustomWatcher customWatcher = new CustomWatcher(zoo, storage, serverPath);
         customWatcher.createServer("localhost:" + port, host, port);
 
-        final 
+        final
 
     }
 
