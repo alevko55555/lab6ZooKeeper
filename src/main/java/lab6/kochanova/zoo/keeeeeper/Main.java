@@ -24,9 +24,9 @@ watcher срабатывает строго один раз, поэтому ег
 public class Main {
     private static final String zookeeperConnect = "127.0.0.1:2181";
     private static final Logger log = Logger.getLogger(Main.class.getName());
-    //private static final String
+    private static final String serverPath = "/servers";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, KeeperException, InterruptedException {
         // creating server
         if (args.length != 2) {
             System.err.println("Usage: Anonymizer <host><port>");
@@ -40,6 +40,10 @@ public class Main {
         final ActorMaterializer materializer = ActorMaterializer.create(system);
         //final AsyncHttpClient asyncHttpClient = asyncHttpClient();
         ActorRef storage = system.actorOf(Props.create(ActorStorageConfig.class));
+        final CustomWatcher customWatcher = new CustomWatcher(zoo, storage, serverPath);
+        customWatcher.createServer("localhost:" + port, host, port);
+
+        final 
 
     }
 
