@@ -19,7 +19,6 @@ public class CustomWatcher {
         this.storage = storage;
         this.serverPath = serverPath;
         watchChildrenCallback(null);
-        int;
     }
 
     private void watchChildrenCallback(WatchedEvent event) {
