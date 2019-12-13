@@ -16,6 +16,7 @@ public class CustomWatcher {
         this.zoo = zoo;
         this.storage = storage;
         this.serverPath = serverPath;
+        watchChildrenCallback(null);
     }
 
     public void watchChildrenCallback(WatchedEvent event) {
