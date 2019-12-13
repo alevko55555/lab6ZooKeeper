@@ -45,10 +45,10 @@ public class Anonymizator {
         if(count == 0) {
             resp = asyncHttpClient.executeRequest(asyncHttpClient.prepareGet(url).build()).toCompletableFuture();
         } else {
-            resp = Patterns.ask(storage, new GetRandomServer(), Duration.ofSeconds(5))
+            resp = Patterns.ask(storage, new GetRandomServer(), Duration.ofSeconds(3))
                     .thenApply(o -> ((ServerList)o).getServer())
                     .thenCompose(znode -> asyncHttpClient.executeRequest(
-                            createServerRequest(getServerUrl(znode), url, count-1)
+                            createServerRequest(getServerUrl(znode), url, count)
                     ).toCompletableFuture()
                                     .handle((response, throwable) ->
                                             handleBadRedirection(response, throwable, znode))
@@ -65,6 +65,7 @@ public class Anonymizator {
     }
 
     public Request createServerRequest(String serverUrl, String url, int count) {
+        count -= 1;
         return asyncHttpClient.prepareGet(serverUrl)
                 .addQueryParam("url", url)
                 .addQueryParam("count", Integer.toString(count))
