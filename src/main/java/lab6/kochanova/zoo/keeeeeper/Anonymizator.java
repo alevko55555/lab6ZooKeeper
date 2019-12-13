@@ -10,12 +10,10 @@ import org.asynchttpclient.AsyncHttpClient;
 
 import message.DeleteServer;
 import message.GetRandomServer;
-import message.PutServer;
 import message.ServerList;
 import org.asynchttpclient.Request;
 import org.asynchttpclient.Response;
 
-import java.net.ConnectException;
 import java.time.Duration;
 import java.util.concurrent.CompletionStage;
 
