@@ -2,6 +2,7 @@ package lab6.kochanova.zoo.keeeeeper;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import akka.actor.Props;
 import akka.http.javadsl.Http;
 import akka.stream.ActorMaterializer;
 import org.apache.zookeeper.CreateMode;
@@ -38,7 +39,7 @@ public class Main {
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
         //final AsyncHttpClient asyncHttpClient = asyncHttpClient();
-        ActorRef storage = system.actorOf(ActorStorageConfig.)
+        ActorRef storage = system.actorOf(Props.create(ActorStorageConfig.class));
 
     }
 
