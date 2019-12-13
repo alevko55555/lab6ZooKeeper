@@ -2,6 +2,7 @@ package lab6.kochanova.zoo.keeeeeper;
 
 import akka.actor.ActorRef;
 import akka.http.javadsl.server.Route;
+import akka.pattern.Patterns;
 import org.apache.zookeeper.ZooKeeper;
 import org.asynchttpclient.AsyncHttpClient;
 
@@ -11,6 +12,7 @@ import message.PutServer;
 import message.ServerList;
 import org.asynchttpclient.Response;
 
+import java.time.Duration;
 import java.util.concurrent.CompletionStage;
 
 import static akka.http.javadsl.server.Directives.*;
@@ -38,7 +40,10 @@ public class Anonymizator {
 
     public Route getUrlCount(String url , int count) {
         if(count == 0) {
-            fetch();
+            asyncHttpClient.executeRequest(asyncHttpClient.prepareGet(url).build()).toCompletableFuture();
+        } else {
+            Patterns.ask(storage, new GetRandomServer(), Duration.ofSeconds(5))
+                    .thenApply(o -> )
         }
     }
 }
