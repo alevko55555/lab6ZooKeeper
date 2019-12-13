@@ -40,7 +40,7 @@ public class Main {
         }
         final String host = args[0];
         final int port = Integer.parseInt(args[1]);
-        final ZooKeeper zoo = new ZooKeeper(zookeeperConnect, 2000, e -> log.info(e.toString()));
+        final ZooKeeper zoo = new ZooKeeper(zookeeperConnect, 3000, e -> log.info(e.toString()));
         final ActorSystem system = ActorSystem.create("routes");
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
