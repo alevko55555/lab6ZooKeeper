@@ -37,9 +37,8 @@ public class Anonymizator {
     }
 
     public Route getUrlCount(String url , int count) {
-        if (CompletionStage<Response> resp = count == 0) {
-
+        if(count == 0) {
+            fetch();
         }
-
     }
 }
