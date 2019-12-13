@@ -19,7 +19,7 @@ public class CustomWatcher {
         watchChildrenCallback(null);
     }
 
-    public void watchChildrenCallback(WatchedEvent event) {
+    private void watchChildrenCallback(WatchedEvent event) {
         try {
             saveServer(
                     zoo.getChildren(serverPath, this::watchChildrenCallback)
