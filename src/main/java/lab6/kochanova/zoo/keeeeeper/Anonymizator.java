@@ -24,5 +24,5 @@ public class Anonymizator {
         this.zoo = zoo;
     }
 
-    private Response 
+    private Response
 }
