@@ -3,7 +3,6 @@ package lab6.kochanova.zoo.keeeeeper;
 import akka.actor.ActorRef;
 import akka.http.javadsl.server.Route;
 import akka.pattern.Patterns;
-import akka.stream.ConnectionException;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeper;
 import org.asynchttpclient.AsyncHttpClient;
@@ -14,6 +13,7 @@ import message.ServerList;
 import org.asynchttpclient.Request;
 import org.asynchttpclient.Response;
 
+import java.net.ConnectException;
 import java.time.Duration;
 import java.util.concurrent.CompletionStage;
 
@@ -58,7 +58,7 @@ public class Anonymizator {
     }
 
     public Response handleBadRedirection(Response response, Throwable throwable, String znode) {
-        if(throwable instanceof ConnectionException) {
+        if(throwable instanceof ConnectException) {
             storage.tell(new DeleteServer(znode), ActorRef.noSender());
         }
         return response;

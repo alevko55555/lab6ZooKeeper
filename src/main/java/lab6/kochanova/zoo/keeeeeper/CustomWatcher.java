@@ -2,12 +2,14 @@ package lab6.kochanova.zoo.keeeeeper;
 
 import akka.actor.ActorRef;
 import message.PutServer;
+import org.apache.log4j.Logger;
 import org.apache.zookeeper.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CustomWatcher {
+    private static final Logger log = Logger.getLogger(CustomWatcher.class.getName());
     private final ZooKeeper zoo;
     private final ActorRef storage;
     private final String serverPath;
@@ -17,6 +19,7 @@ public class CustomWatcher {
         this.storage = storage;
         this.serverPath = serverPath;
         watchChildrenCallback(null);
+        int;
     }
 
     private void watchChildrenCallback(WatchedEvent event) {
