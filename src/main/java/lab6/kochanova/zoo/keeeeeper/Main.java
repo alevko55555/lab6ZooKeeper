@@ -20,6 +20,7 @@ import org.asynchttpclient.*;
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
 import java.util.logging.Logger;
+import static org.asynchttpclient.Dsl.asyncHttpClient;
 
 /*
 ZooKeeper лежит в корневой папке пользователя
